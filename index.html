@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In Loving Memory | William Kimanzi</title>
+
+<!-- preconnect speeds up font loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 2 fonts instead of 3, font-display=swap so text shows instantly -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+<!-- NO Tailwind CDN — replaced with plain CSS below -->
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #0a0a0a;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: #f0e6c8;
+    overflow-x: hidden;
+    padding-top: 52px;
+    background-image: radial-gradient(circle at 20% 50%, rgba(212,175,55,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(212,175,55,0.03) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(212,175,55,0.04) 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* GOLD CORNER ORNAMENTS — hero only */
+.hero-corners {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.corner {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+.corner.tl { top: 24px; left: 24px; border-top: 2px solid #d4af37; border-left: 2px solid #d4af37; border-radius: 4px 0 0 0; }
+.corner.tr { top: 24px; right: 24px; border-top: 2px solid #d4af37; border-right: 2px solid #d4af37; border-radius: 0 4px 0 0; }
+.corner.bl { bottom: 24px; left: 24px; border-bottom: 2px solid #d4af37; border-left: 2px solid #d4af37; border-radius: 0 0 0 4px; }
+.corner.br { bottom: 24px; right: 24px; border-bottom: 2px solid #d4af37; border-right: 2px solid #d4af37; border-radius: 0 0 4px 0; }
+
+}
+
+.gold {
+    background: linear-gradient(90deg, #d4af37, #ffd700, #c5a100);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card {
+    background: rgba(17,17,17,0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1), inset 0 0 0 1px rgba(212,175,55,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.2), inset 0 0 0 1px rgba(212,175,55,0.1);
+}
+
+.ornate {
+    border: 1px solid rgba(212,175,55,0.4);
+    box-shadow: 0 0 40px rgba(212,175,55,0.1), inset 0 0 80px rgba(212,175,55,0.02);
+}
+
+/* all 4 corner brackets on every card */
+.card::before, .card::after,
+.card .c1, .card .c2 {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: #d4af37;
+    border-style: solid;
+    opacity: 0.65;
+    pointer-events: none;
+}
+.card::before { top: 10px;  left: 10px;  border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
+.card::after  { top: 10px;  right: 10px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+
+/* bottom corners via wrapper spans injected by JS */
+.card-br-tl, .card-br-tr, .card-br-bl, .card-br-br {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: #d4af37;
+    border-style: solid;
+    opacity: 0.65;
+    pointer-events: none;
+}
+.card-br-bl { bottom: 10px; left: 10px;  border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
+.card-br-br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
+
+/* ── BOUQUET corners on cards ── */
+.bouquet {
+    position: absolute;
+    width: 80px;
+    height: 90px;
+    pointer-events: none;
+    opacity: 0.88;
+    z-index: 3;
+}
+.bouquet.btl { top: -18px;    left: -18px;  transform: rotate(0deg); }
+.bouquet.btr { top: -18px;    right: -18px; transform: rotate(90deg); }
+.bouquet.bbl { bottom: -18px; left: -18px;  transform: rotate(270deg); }
+.bouquet.bbr { bottom: -18px; right: -18px; transform: rotate(180deg); }
+
+/* remove old bracket spans since bouquets replace them */
+.card-br-bl, .card-br-br { display: none; }
+.card::before, .card::after { display: none; }
+
+.card-story {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 40px,
+            rgba(212,175,55,0.03) 40px,
+            rgba(212,175,55,0.03) 41px
+        ),
+        #111111;
+}
+
+/* ── EDUCATION — top gold bar + dot row ── */
+.card-education::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    border-radius: 20px 20px 0 0;
+    opacity: 1;
+    width: 100%;
+    border: none;
+}
+.card-education::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    border-radius: 0 0 20px 20px;
+    opacity: 1;
+    width: 100%;
+    border: none;
+}
+
+/* ── FAMILY — radial gold glow center ── */
+.card-family {
+    background:
+        radial-gradient(ellipse at center, rgba(212,175,55,0.06) 0%, transparent 70%),
+        #111111;
+}
+
+/* ── WORK — horizontal gold pinstripes ── */
+.card-work {
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 24px,
+            rgba(212,175,55,0.04) 24px,
+            rgba(212,175,55,0.04) 25px
+        ),
+        #111111;
+}
+
+/* ── CHRISTIAN — cross watermark ── */
+.card-faith {
+    background: #111111;
+}
+.card-faith .cross-mark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 80px;
+    opacity: 0.04;
+    pointer-events: none;
+}
+.card-faith .cross-mark::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 12px; height: 100%;
+    background: #d4af37;
+}
+.card-faith .cross-mark::after {
+    content: '';
+    position: absolute;
+    top: 25%; left: 0;
+    width: 100%; height: 12px;
+    background: #d4af37;
+}
+
+/* ── FINAL JOURNEY — dark vignette ── */
+.card-journey {
+    background:
+        radial-gradient(ellipse at center, #1a1a1a 40%, #0a0a0a 100%);
+    border-color: rgba(212,175,55,0.3);
+}
+
+/* ── FAREWELL — full gold border glow ── */
+.card-farewell {
+    background: #0f0f0f;
+    border: 1px solid rgba(212,175,55,0.6);
+    box-shadow:
+        0 0 0 1px rgba(212,175,55,0.1),
+        0 0 60px rgba(212,175,55,0.2),
+        inset 0 0 40px rgba(212,175,55,0.05);
+}
+
+/* ── GALLERY card wrapper ── */
+.gallery-card {
+    background: #0f0f0f;
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 20px;
+    padding: 40px 24px;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 0 50px rgba(212,175,55,0.08);
+}
+
+/* ── TRIBUTES card wrapper ── */
+.tributes-card {
+    background:
+        radial-gradient(ellipse at top, rgba(212,175,55,0.06) 0%, transparent 60%),
+        #111111;
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 20px;
+    padding: 40px 24px;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 0 40px rgba(212,175,55,0.08);
+}
+
+.divider {
+    height: 2px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, #d4af37, #ffd700, #d4af37, transparent);
+    margin: 20px auto;
+    border-radius: 1px;
+}
+
+/* scroll-triggered fade instead of all-at-once on load */
+.fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* layout helpers replacing Tailwind utilities */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    position: relative;
+    background:
+        radial-gradient(ellipse at top, rgba(212,175,55,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at bottom, rgba(212,175,55,0.05) 0%, transparent 60%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    background-attachment: fixed;
+}
+
+.hero img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #d4af37;
+    box-shadow: 0 0 0 6px rgba(212,175,55,0.15), 0 0 40px rgba(212,175,55,0.2);
+    margin: 0 auto 24px;
+    display: block;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+}
+
+.hero .dates {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+}
+
+.hero .tagline {
+    font-style: italic;
+    color: #c9a84c;
+}
+
+section.content {
+    padding: 80px 24px;
+}
+
+section.content.alt {
+    background: #0d0d0d;
+}
+
+.inner    { max-width: 860px;  margin: 0 auto; }
+.inner-lg { max-width: 1000px; margin: 0 auto; }
+.centered { text-align: center; }
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    text-align: center;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #d4af37, #ffd700, #c5a100);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+p { line-height: 1.85; }
+p + p { margin-top: 16px; }
+
+.footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-style: italic;
+    color: #c9a84c;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: rgba(10,10,10,0.9);
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+    backdrop-filter: blur(10px);
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.navbar span {
+    color: rgba(212,175,55,0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+}
+.navbar .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    background: linear-gradient(90deg, #d4af37, #ffd700, #c5a100);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.15em;
+}
+
+/* ── HEADING SHIMMER ── */
+@keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+.gold {
+    background: linear-gradient(90deg, #c5a100 0%, #ffd700 40%, #fff8c0 50%, #ffd700 60%, #c5a100 100%);
+    background-size: 400px 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
+
+/* ── SECTION SEPARATOR ── */
+.sep {
+    display: block;
+    width: 100%;
+    height: 32px;
+    overflow: visible;
+    margin: 0;
+}
+
+/* ── TIMELINE LEFT ACCENT ── */
+.card-story, .card-family {
+    border-left: 3px solid rgba(212,175,55,0.4);
+}
+.card-story::before, .card-family::before {
+    content: '';
+    position: absolute;
+    left: -8px; top: 50%;
+    transform: translateY(-50%);
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #d4af37;
+    box-shadow: 0 0 12px rgba(212,175,55,0.6);
+    border: none;
+}
+
+/* ── GALLERY CAPTION HOVER ── */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(212,175,55,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    border: none;
+    transition: transform 0.4s;
+}
+.gallery-caption {
+    display: none;
+}
+
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item:hover { box-shadow: 0 0 24px rgba(212,175,55,0.35); border-color: #d4af37; }    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    border: none;
+    transition: transform 0.4s;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item:hover { box-shadow: 0 0 24px rgba(212,175,55,0.35); border-color: #d4af37; }
+.gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    color: #d4af37;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 20px 8px 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+
+/* ── MODAL HEADER BAND ── */
+.modal-band {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(to right, transparent, #d4af37, #ffd700, #d4af37, transparent);
+    border-radius: 20px 20px 0 0;
+}
+
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,175,55,0.3));
+}
+    background: linear-gradient(to left, transparent, rgba(212,175,55,0.3));
+}
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212,175,55,0.5);
+    white-space: nowrap;
+}
+
+
+.particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #d4af37;
+    border-radius: 50%;
+    opacity: 0;
+    animation: drift 6s ease-in infinite;
+}
+@keyframes drift {
+    0%   { opacity: 0; transform: translateY(0) scale(1); }
+    20%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-120px) scale(0.4); }
+}
+
+/* HERO RING */
+.hero-ring {
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.2);
+    box-shadow: 0 0 0 12px rgba(212,175,55,0.05), 0 0 0 24px rgba(212,175,55,0.03);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* SECTION ICON BADGE */
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(212,175,55,0.5);
+    background: rgba(212,175,55,0.1);
+    font-size: 1.3rem;
+    margin: 0 auto 12px;
+    display: block;
+    text-align: center;
+    line-height: 48px;
+    box-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+
+/* ORNAMENTAL SVG DIVIDER */
+.orn-divider {
+    display: block;
+    margin: 0 auto 0;
+    width: 100%;
+    max-width: 600px;
+    height: 24px;
+    overflow: visible;
+}
+
+/* QUOTE STYLE for farewell */
+.card-farewell p:first-of-type {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #d4af37;
+}
+
+/* PROGRAMME TABLE */
+.programme-table {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+.programme-table th {
+    border-bottom: 2px solid #d4af37;
+    padding: 12px 8px;
+    color: #d4af37;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.programme-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    vertical-align: top;
+}
+.programme-table tr:last-child td { border-bottom: none; }
+
+/* HERO dates pill */
+.dates-pill {
+    display: inline-block;
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 30px;
+    padding: 4px 20px;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    margin-top: 12px;
+    color: #f0e6c8;
+}
+
+/* TRIBUTE avatar ring pulse */
+.tribute-icon .avatar {
+    animation: pulse-ring 3s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.3); }
+    50%       { box-shadow: 0 0 0 6px rgba(212,175,55,0); }
+}
+
+.gallery-section {
+    padding: 80px 24px;
+    background: #0d0d0d;
+    text-align: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-auto-rows: 1fr;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    border: none;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(212,175,55,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+    background: #111111;
+}
+.gallery-grid img:hover {
+    transform: scale(1.03);
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 12px;
+    border: 1px solid rgba(212,175,55,0.4);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.tributes-section {
+    padding: 80px 24px;
+    text-align: center;
+    background: #0a0a0a;
+}
+
+.tribute-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 40px;
+}
+
+.tribute-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    width: 90px;
+}
+
+.tribute-icon .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid rgba(212,175,55,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: #1a1a1a;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.tribute-icon:hover .avatar {
+    border-color: #d4af37;
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(212,175,55,0.4);
+}
+
+.tribute-icon:hover .avatar {
+    border-color: #d4af37;
+    transform: scale(1.1);
+}
+
+.tribute-icon span {
+    font-size: 0.75rem;
+    color: #d4af37;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* TRIBUTE MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal-box {
+    background: #111111;
+    border: 1px solid rgba(212,175,55,0.5);
+    box-shadow: 0 0 60px rgba(212,175,55,0.2);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.modal-box .modal-avatar { font-size: 3rem; margin-bottom: 12px; }
+
+.modal-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.modal-box .relation {
+    font-size: 0.8rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.modal-box blockquote {
+    font-style: italic;
+    color: #c8b89a;
+    line-height: 1.9;
+    border-left: 3px solid #d4af37;
+    padding-left: 16px;
+    text-align: left;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.modal-close:hover { color: #d4af37; }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <span>✦</span>
+  <span class="nav-name">William Kimanzi</span>
+  <span>✦</span>
+  <span>1957 – 2026</span>
+  <span>✦</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="particles" id="particles"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-corners">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+  </div>
+  <div class="fade" style="position:relative;z-index:3;">
+    <img src="assets/WhatsApp Image 2026-04-02 at 13.54.06.jpeg" alt="William Kimanzi">
+    <h1 class="gold">William Kimanzi</h1>
+    <p class="dates-pill">1957 &nbsp;—&nbsp; 27 March 2026</p>
+    <div class="divider"></div>
+    <p class="tagline">A life of love, strength, and legacy</p>
+  </div>
+</section>
+
+<!-- FUNERAL PROGRAMME -->
+<section class="content alt">
+  <div class="inner card card-programme ornate centered fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">📅</div>
+    <h2 class="gold">Funeral Programme for the Late William Kimanzi</h2>
+    <div class="divider"></div>
+    <p><strong>Tuesday, 7th April 2026</strong></p>
+    <p><strong>Presiding Minister:</strong> Priest</p>
+    <p><strong>Master of Ceremony:</strong> Martin Kathembe</p>
+    <div class="divider"></div>
+    <table class="programme-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>8:00 AM</td>
+          <td>Arrival at Kitui Funeral Home</td>
+        </tr>
+        <tr>
+          <td>9:30 AM</td>
+          <td>Arrival at Home</td>
+        </tr>
+        <tr>
+          <td>10:00 AM</td>
+          <td>Opening Prayers</td>
+        </tr>
+        <tr>
+          <td>10:30 AM</td>
+          <td>Eulogy – Beatrice Kibor</td>
+        </tr>
+        <tr>
+          <td>11:00 AM</td>
+          <td>
+            Tributes<br>
+            <strong>1. Wife</strong><br>
+            <strong>2. Children:</strong> Sons, Daughters, Sons-in-law, Daughters-in-law<br>
+            <strong>3. Grandchildren</strong><br>
+            <strong>4. Brothers</strong><br>
+            <strong>5. Sisters</strong><br>
+            <strong>6. Cousins:</strong> Kwa Maingi, Malungu, Mulutu<br>
+            <strong>7. Sisters-in-law</strong><br>
+            <strong>8. In-laws:</strong> Mbusyani, Asyitaye<br>
+            <strong>9. Friend:</strong> Kisasa (on behalf)<br>
+            <strong>10. Neighbour</strong><br>
+            <strong>11. Groups:</strong> Joint (Kimunyu), Nguu / Maingi, Nairobi
+          </td>
+        </tr>
+        <tr>
+          <td>12:00 PM</td>
+          <td>Address by Priest</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- LIFE STORY -->
+<section class="content">
+  <div class="inner-lg card card-story ornate fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">📖</div>
+    <h2 class="gold">Life Story</h2>
+    <div class="divider"></div>
+    <p>The late William Kimanzi was born in 1957 at Ithiani Village in Kitui County. He was the sixthborn to the late Kimanzi Maingi and the late Syombua Kimanzi. He was a brother to Kasyoka Kimanzi, Mutuku Kimanzi, the late Richard, the late Musyimi, and the late David. He was a brother-in-law to the late John Mweu, Andrew Kyambi, Muinde Katunga, Philip Katunga, and Muindi, among others. He was a nephew to the late Kalekye Maingi, the late John Ngungui, and Mary Ngungui, among others. He was also a son-in-law to the late Katunga and Beatrice Kaeke Katunga.</p>
+  </div>
+</section>
+
+
+<!-- EDUCATION -->
+<section class="content alt">
+  <div class="inner card card-education ornate centered fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">🎓</div>
+    <h2 class="gold">Education</h2>
+    <div class="divider"></div>
+    <p>William began his educational journey at Ithiani Primary School before proceeding to Mbusyani. The foundation he received through education played a significant role in shaping him into the responsible man we all came to know and admire.</p>
+  </div>
+</section>
+
+
+<!-- FAMILY -->
+<section class="content">
+  <div class="inner-lg card card-family ornate fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">💛</div>
+    <h2 class="gold">Marriage &amp; Family</h2>
+    <div class="divider"></div>
+    <p>In due time, William entered into a loving union with his dear wife, Margaret Mwende Katunga. Their marriage was blessed with seven children: Jacinta Kanini, Fredrick Ngungui, Catherine Kaeke (Beatrice), Antony Kimanzi, Rosemary William, the late Syombua Mulela, and Mercy Kasyoka.</p>
+    <p>He was a devoted father who loved his children dearly and worked hard to provide for them and guide them through life. As his family grew, he warmly welcomed his sons-in-law and daughters-in-law—Joseph Kisabit, Joseph Kimani, Brian Mulavi, Eunice Maina, and Purity Ngami—treating them as his own children and valuing family unity.</p>
+    <p>William was further blessed with grandchildren: Beatrice Kibor, Joyce Wanjiru, Margaret Mwende, Joy Wangari, Blessing Kanini, Margaret Cherotich, Godwill Mumo, Kaylee Mwende, Emmanuel Baraka, and Princess Wambui, all of whom brought him immense joy and fulfillment.</p>
+  </div>
+</section>
+
+
+<!-- WORK -->
+<section class="content alt">
+  <div class="inner card card-work ornate centered fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">💼</div>
+    <h2 class="gold">Work Life</h2>
+    <div class="divider"></div>
+    <p>Throughout his life, William was a hardworking man. He worked at the Coast Bus before, later joining Bata Shoe Company. Through dedication, perseverance, and a strong sense of responsibility, he was able to provide for his family and uphold the dignity of honest labor.</p>
+  </div>
+</section>
+
+
+<!-- FAITH -->
+<section class="content">
+  <div class="inner card card-faith ornate centered fade">
+    <div class="cross-mark"></div>
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">✝️</div>
+    <h2 class="gold">Christian Life</h2>
+    <div class="divider"></div>
+    <p>William was a man of faith who loved God and trusted in Him. He believed strongly in prayers and Christian values. He was a strong member of St. Kizito Small Christian Community of St. Francis of Asis Ithimani Station.</p>
+  </div>
+</section>
+
+
+<!-- FINAL JOURNEY -->
+<section class="content alt">
+  <div class="inner card card-journey ornate centered fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">🕊️</div>
+    <h2 class="gold">Final Journey</h2>
+    <div class="divider"></div>
+    <p>In the final chapter of his life, William courageously battled a chest and lung infection that significantly affected his breathing and led to multiple hospital admissions. Despite these trials, he remained steadfast—facing each challenge with remarkable courage, hope, and resilience. His strength during this time was a source of inspiration to his family and all who stood by him. His demise has deeply saddened everyone around him.</p>
+  </div>
+</section>
+
+
+<!-- REST IN PEACE -->
+<section class="content centered">
+  <div class="inner card card-farewell fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <div class="section-badge">🌿</div>
+    <h2 class="gold">A Final Farewell</h2>
+    <div class="divider"></div>
+    <p>On 27th March 2026, God, in His divine wisdom, called His faithful servant home to eternal rest. May God rest him in eternal peace.</p>
+    <p>William leaves behind his loving wife, his children, sons-in-law, daughters-in-law, and grandchildren. Though he is no longer with us in the physical sense, his legacy of love, strength, and faith will forever live on in the hearts of all who knew and cherished him.</p>
+  </div>
+  <div class="footer-wrap">
+    <span class="footer-orn">✦ ✦ ✦</span>
+    <p>Forever in our hearts &nbsp;🕊️</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-card fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <h2 class="gold">Reflections in Time</h2>
+    <svg class="orn-divider" viewBox="0 0 600 24"><line x1="0" y1="12" x2="240" y2="12" stroke="rgba(212,175,55,0.3)" stroke-width="1"/><polygon points="300,4 310,12 300,20 290,12" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.6"/><circle cx="300" cy="12" r="3" fill="#d4af37" opacity="0.5"/><line x1="360" y1="12" x2="600" y2="12" stroke="rgba(212,175,55,0.3)" stroke-width="1"/></svg>
+    <p style="color:#c9a84c;font-size:0.9rem;margin-top:8px;">Cherished moments with family and loved ones</p>
+    <div class="divider"></div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLight('assets/sickness.jpeg')"><img src="assets/sickness.jpeg" alt="William Kimanzi"><div class="gallery-caption">William Kimanzi</div></div>
+      <div class="gallery-item" onclick="openLight('assets/family.jpeg')"><img src="assets/family.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/grandpa.jpeg')"><img src="assets/grandpa.jpeg" alt="William Kimanzi"><div class="gallery-caption">Grandpa</div></div>
+      <div class="gallery-item" onclick="openLight('assets/fam.jpeg')"><img src="assets/fam.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/tbt.jpeg')"><img src="assets/tbt.jpeg" alt="William Kimanzi"><div class="gallery-caption">Memories</div></div>
+      <div class="gallery-item" onclick="openLight('assets/InShot_20220710_102615764.jpg')"><img src="assets/InShot_20220710_102615764.jpg" alt="William Kimanzi"><div class="gallery-caption">William Kimanzi</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 20.30.20.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 20.30.20.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 20.30.21.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 20.30.21.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 16.44.38.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 16.44.38.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 16.44.39.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 16.44.39.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 17.07.03.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 17.07.03.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+      <div class="gallery-item" onclick="openLight('assets/WhatsApp Image 2026-04-02 at 23.21.01.jpeg')"><img src="assets/WhatsApp Image 2026-04-02 at 23.21.01.jpeg" alt="William Kimanzi"><div class="gallery-caption">Family</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLight()">
+  <button class="lightbox-close" onclick="closeLight()">&#x2715;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- TRIBUTES -->
+<section class="tributes-section">
+  <div class="tributes-card fade">
+    <span class="card-br-bl"></span><span class="card-br-br"></span>
+    <h2 class="gold">Words from the Family</h2>
+    <svg class="orn-divider" viewBox="0 0 600 24"><line x1="0" y1="12" x2="240" y2="12" stroke="rgba(212,175,55,0.3)" stroke-width="1"/><polygon points="300,4 310,12 300,20 290,12" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.6"/><circle cx="300" cy="12" r="3" fill="#d4af37" opacity="0.5"/><line x1="360" y1="12" x2="600" y2="12" stroke="rgba(212,175,55,0.3)" stroke-width="1"/></svg>
+    <div class="divider"></div>
+    <p style="color:#c9a84c;font-size:0.9rem;">Tap a name to read their tribute</p>
+
+    <div class="tribute-icons">
+      <div class="tribute-icon" onclick="openTribute('wife')">
+        <div class="avatar">🕊️</div>
+        <span>Margaret<br>Wife</span>
+      </div>
+      <div class="tribute-icon" onclick="openTribute('daughters')">
+        <div class="avatar">🌸</div>
+        <span>The<br>Daughters</span>
+      </div>
+      <div class="tribute-icon" onclick="openTribute('daughters_inlaw')">
+        <div class="avatar">💐</div>
+        <span>Daughters<br>in-Law</span>
+      </div>
+      <div class="tribute-icon" onclick="openTribute('sons')">
+        <div class="avatar">👨</div>
+        <span>The<br>Sons</span>
+      </div>
+      <div class="tribute-icon" onclick="openTribute('sons_inlaw')">
+        <div class="avatar">🤝</div>
+        <span>Sons<br>in-Law</span>
+      </div>
+      <div class="tribute-icon" onclick="openTribute('grandchildren')">
+        <div class="avatar">🌱</div>
+        <span>Grand-<br>children</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIBUTE MODAL -->
+<div class="modal-overlay" id="tributeModal" onclick="closeOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-band"></div>
+    <button class="modal-close" onclick="closeTribute()">&#x2715;</button>
+    <div class="modal-avatar" id="modalAvatar"></div>
+    <h3 id="modalName"></h3>
+    <p class="relation" id="modalRelation"></p>
+    <blockquote id="modalQuote"></blockquote>
+  </div>
+</div>
+
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Sections fade in only when scrolled into view
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target); // stop watching once visible
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+
+// Gold floating particles in hero
+const pc = document.getElementById('particles');
+for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top  = (40 + Math.random() * 50) + '%';
+    p.style.animationDelay = (Math.random() * 6) + 's';
+    p.style.animationDuration = (4 + Math.random() * 4) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+    pc.appendChild(p);
+}
+
+const tributes = {
+    wife: {
+        avatar: '🕊️',
+        name: 'Margaret Mwende Kimanzi',
+        relation: 'Wife',
+        quote: 'You were my strength, my home, and my greatest love. Decades together were never enough. I will carry you in my heart until we meet again. Rest well, my William.'
+    },
+    daughters: {
+        avatar: '🌸',
+        name: 'Jacinta, Catherine, Rosemary & Mercy',
+        relation: 'Daughters',
+        quote: 'Dad, you were our provider, our protector, and our greatest example. We watched you face your final days with grace that humbled us all. We are proud to be your daughters. Rest well, Baba.'
+    },
+    daughters_inlaw: {
+        avatar: '💐',
+        name: 'Eunice & Purity',
+        relation: 'Daughters-in-Law',
+        quote: 'Baba, you welcomed us as your own from the very first day. Your warmth and wisdom made us feel truly part of this family. We are honoured to carry your legacy forward. Rest in peace, Baba.'
+    },
+    sons: {
+        avatar: '👨',
+        name: 'Fredrick & Antony',
+        relation: 'Sons',
+        quote: 'Father, you were our standard — a man of integrity, hard work, and unconditional love. Every lesson you taught us we carry with us. We are proud to be your sons. Rest in eternal peace, Dad.'
+    },
+    sons_inlaw: {
+        avatar: '🤝',
+        name: 'Joseph Kisabit, Joseph Kinani & Brian Mulavi',
+        relation: 'Sons-in-Law',
+        quote: 'Baba, you received us into your home and heart without hesitation, treating us as sons. Your example of faithfulness and devotion is one we aspire to follow. Thank you. Rest well, Baba.'
+    },
+    grandchildren: {
+        avatar: '🌱',
+        name: 'The Grandchildren',
+        relation: 'Grandchildren',
+        quote: 'Babu, your laughter, your warmth, and the way you called each of our names made every gathering special. Not everyone gets a grandfather like you. We will carry your memory always. Rest with the angels, Babu.'
+    }
+};
+
+function openLight(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLight() {
+    document.getElementById('lightbox').classList.remove('open');
+}
+
+function openTribute(key) {
+    const t = tributes[key];
+    document.getElementById('modalAvatar').textContent   = t.avatar;
+    document.getElementById('modalName').textContent     = t.name;
+    document.getElementById('modalRelation').textContent = t.relation;
+    document.getElementById('modalQuote').textContent    = t.quote;
+    document.getElementById('tributeModal').classList.add('open');
+}
+
+function closeTribute() {
+    document.getElementById('tributeModal').classList.remove('open');
+}
+
+function closeOnOverlay(e) {
+    if (e.target.id === 'tributeModal') closeTribute();
+}
+</script>
+
+</body>
+</html>
