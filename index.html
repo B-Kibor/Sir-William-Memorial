@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>In Loving Memory | William Kimanzi</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d4af37' d='M42 14c-3.9 0-7.6 1.5-10.4 4-1.7-1.7-3.6-3.2-5.7-4.5C23 13 18 16 17 22c-2 8 3 14 10 16v8l4-3 4 3v-8c7-2 12-8 10-16-1-3-3.5-6-8-8z'/%3E%3C/svg%3E" />
 
 <!-- preconnect speeds up font loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -805,6 +806,30 @@ p + p { margin-top: 16px; }
 }
 
 .modal-close:hover { color: #d4af37; }
+
+/* ── FOOTER ── */
+footer {
+    background: rgba(17,17,17,0.95);
+    border-top: 1px solid rgba(212,175,55,0.3);
+    padding: 40px 24px;
+    text-align: center;
+    margin-top: 80px;
+    color: #a9963f;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+footer .made-with-love {
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+footer .creator {
+    color: #c8b89a;
+    margin-top: 8px;
+}
 </style>
 </head>
 
@@ -906,7 +931,7 @@ p + p { margin-top: 16px; }
     <div class="section-badge">📖</div>
     <h2 class="gold">Life Story</h2>
     <div class="divider"></div>
-    <p>The late William Kimanzi was born in 1957 at Ithiani Village in Kitui County. He was the sixthborn to the late Kimanzi Maingi and the late Syombua Kimanzi. He was a brother to Kasyoka Kimanzi, Mutuku Kimanzi, the late Richard, the late Musyimi, and the late David. He was a brother-in-law to the late John Mweu, Andrew Kyambi, Muinde Katunga, Philip Katunga, and Muindi, among others. He was a nephew to the late Kalekye Maingi, the late John Ngungui, and Mary Ngungui, among others. He was also a son-in-law to the late Katunga and Beatrice Kaeke Katunga.</p>
+    <p>The late William Kimanzi was born in 1957 at Ithiani Village in Kitui County. He was the sixthborn to the late Kimanzi Maingi and the late Syombua Kimanzi. He was a brother to Kasyoka Kimanzi, Mwikali Kimanzi, Kimoni Kimanzi, the late Malonza, the late Kilugya, the late Mwamba, the late Richard, the late Musyimi, and the late David. He was a brother-in-law to the late John Mweu, Andrew Kyambi, Muinde Katunga, Philip Katunga, and Muindi, among others. He was a nephew to the late Kalekye Maingi, the late John Ngungui, and Mary Ngungui, among others. He was also a son-in-law to the late Katunga and Beatrice Kaeke Katunga.</p>
   </div>
 </section>
 
@@ -1167,6 +1192,12 @@ function closeOnOverlay(e) {
     if (e.target.id === 'tributeModal') closeTribute();
 }
 </script>
+
+<!-- FOOTER -->
+<footer>
+    <p class="made-with-love">♦ Made with love by Betty Kibor Kisabit ♦</p>
+    <p class="creator">In loving memory of William Kimanzi</p>
+</footer>
 
 </body>
 </html>
